@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="playerApp">
+<head>
+	<meta charset="UTF-8">
+	<title>angular音乐播放器</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<script type="text/javascript" src="js/angular.js"></script>
+	
+</head>
+<body>
+	<article class="container" ng-controller="playerController">
+		<div class="main">
+			<div class="player">
+				<nav class="artist">
+					<p class="artist-img" ng-init="player.isPlay=false" ng-class="{true: 'artist-rotate', false: ''}[player.isPlay]">
+						<img ng-src="{{avatar}}" alt="">
+					</p>
+					<p class="artist-name"><b class="icon-music"></b>{{artist}}</p>
+				</nav>
+				<section class="music">
+					<h2>{{song}}</h2>
+					<p class="music-record">{{album}}</p>
+				</section>
+				<div class="player-btn" ng-init="player.playing=false">
+					<a ng-href="#" class="prev icon" ng-click="player.prev()"><span class="icon-backward"></span></a>
+					<a ng-href="#" class="play" ng-show="!player.playing" ng-click="player.play()"><span class="icon-play"></span></a>
+					<a ng-href="#" class="stop" ng-show="player.playing" ng-click="player.stop()"><span class="icon-pause"></span></a>
+					<a ng-href="#" class="next"  ng-click="player.next()"><span class="icon-forward"></span></a>
+				</div>
+			</div>
+			<div class="player-list" >
+				<h3 class="list-title"><i class="icon-vynil"></i>音乐列表</h3>
+				<ul class="list-music" ng-init="player.active=0">
+					<li ng-repeat="data in datas" ng-click="isSelected(data)" title="{{data.artist}}－{{data.song}}－{{data.album}}">
+						<span>{{data.artist}}－{{data.song}}－{{data.album}}</span>
+						<i ng-class="{'icon-music': data.id === player.active}"></i>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="progress-play">
+			<div class="play-sel">
+				<music-mode player="player" audio="audio"></music-mode>
+			</div>
+
+			<progress-bar player="player" audio="audio"></progress-bar>
+		</div>
+	</article>
+	<script type="text/javascript" src="js/angular-route.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
